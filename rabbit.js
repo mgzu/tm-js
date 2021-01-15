@@ -7,6 +7,7 @@
 // @include      http://193.112.63.187/*
 // @match        http://193.112.63.187/*
 // @grant        none
+// @resource     https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.css
 // ==/UserScript==
 
 (function() {
@@ -14,8 +15,9 @@
 
     let action = createElement('rabbit-action')
 
-    let countQueue = createElement('count-queue')
+    let countQueue = createElement('count-queue', 'button')
     countQueue.innerHTML = "count-queue"
+    $(countQueue).addClass('button')
 
     $(countQueue).on('click', function() {
         alert(`queue message count: ${rabbitCount()}`)
@@ -23,7 +25,7 @@
 
     action.appendChild(countQueue)
 
-    let clearExchanges = createElement('clear-exchanges')
+    let clearExchanges = createElement('clear-exchanges', 'button')
     clearExchanges.innerHTML = "clear-exchanges"
 
     $(clearExchanges).on('click', function() {
@@ -33,7 +35,7 @@
 
     action.appendChild(clearExchanges)
 
-    let clearQueues = createElement('clear-queues')
+    let clearQueues = createElement('clear-queues', 'button')
     clearQueues.innerHTML = "clear-queues"
 
     $(clearQueues).on('click', function() {
@@ -45,8 +47,8 @@
 
     document.body.insertBefore(action, document.body.childNodes[0])
 
-    function createElement(id) {
-        let ele = document.createElement("div")
+    function createElement(id, tag) {
+        let ele = document.createElement(tag ? tag : 'div')
         ele.setAttribute("id", id)
         return ele
     }
